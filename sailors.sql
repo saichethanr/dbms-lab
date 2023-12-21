@@ -59,7 +59,7 @@ select b.color from Boat b join reserves r on r.bid = b.bid join Sailors s on r.
 select s.sname from Sailors s where not exists ( select b.bid from Boat b where not exists (select r.bid from reserves r where r.sid=s.sid and r.bid=b.bid));
 --find the oldetst sailor
 select s.sname from Sailors s where s.age=(select MAX(age) from Sailors);
---For each boat which was reserved by at least 2 sailors with age >= 40, find the boat id andthe average age of such sailors. (**)
+--For each boat which was reserved by at least 2 sailors with age >= 40, find the boat id and the average age of such sailors. (**)
 select r.bid,AVG(s.age) from reserves r join Sailors s on r.sid=s.sid where s.age>=40 group by r.bid having COUNT(DISTINCT r.sid)>=2;
 --Create a view that shows the names and colours of all the boats that have been reserved by a sailor with a specific rating.
 create view boatdet as select b.bname,b.color from Boat b join reserves r on r.bid=b.bid join Sailors s on s.sid=r.sid where s.rating=5;
